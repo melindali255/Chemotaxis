@@ -1,15 +1,15 @@
 //declare bacteria variables here   
-Bacteria dot1;
-Bacteria dot2;
-Bacteria dot3;
+Bacteria[] dots;
+int mouseColor = color(121, 193, 240);
 void setup()   
 {     
   size(500, 500);
   background(255);
   //initialize bacteria variables here
-  dot1 = new Bacteria(0, 0);
-  dot2 = new Bacteria(400, 400);
-  dot3 = new Bacteria (250, 500);
+  dots = new Bacteria[20];
+  for (int i = 0; i < dots.length; i++) {
+    dots[i] = new Bacteria();
+  }
 }   
 void draw()   
 {    
@@ -18,20 +18,24 @@ void draw()
   fill(255, 98, 111);
   ellipse(250, 250, 50, 50);
   //move and show the bacteria
-  dot1.show();
-  dot1.walk();
-  dot2.show();
-  dot2.walk();
-  dot3.show();
-  dot3.walk();
+  for (int i = 0; i < dots.length; i++) {
+    dots[i].walk();
+    dots[i].show();
+    dots[i].checkCollision();
+  }
+  //mouse bacteria
+  fill(mouseColor);
+  ellipse(mouseX, mouseY, 25, 25);
 }  
 class Bacteria    
 {     
   int myX;
   int myY;
-  Bacteria(int x, int y) {
-    myX = x;
-    myY = y;
+  int myColor;
+  Bacteria() {
+    myX = (int)(Math.random()*500);
+    myY = (int)(Math.random()*25);
+    myColor = color(192, 148, 232);
   }
   void walk() {
     int xStep;
@@ -48,8 +52,6 @@ class Bacteria
     {
       yStep = (int)(Math.random()*3 - 3);
     }
-    System.out.println("xStep" + xStep);
-    System.out.println("yStep" + yStep);
     myX = myX + xStep;
     myY = myY + yStep;
     //keep in screen
@@ -63,7 +65,14 @@ class Bacteria
       myY = 500;
   }
   void show() {
-    fill(192, 148, 232);
-    ellipse(myX, myY, 50, 50);
+    fill(myColor);
+    ellipse(myX, myY, 20, 20);
   }
-}    
+  void checkCollision() {
+    if (get(myX, myY) == color(mouseColor)) {
+      myX = (int)(Math.random() * 500);
+      myY = (int)(Math.random()*40 + 400);
+      System.out.println("hit");
+    }
+  }
+}
