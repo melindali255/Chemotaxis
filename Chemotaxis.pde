@@ -59,16 +59,16 @@ class Bacteria
     int xStep;
     int yStep;
     if (myX < 250) {
-      xStep = (int)(Math.random()*5);
+      xStep = (int)(Math.random()*20);
     } else 
     {
-      xStep = (int)(Math.random()*5 - 5);
+      xStep = (int)(Math.random()*20 - 20);
     }
     if (myY < 250) {
-      yStep = (int)(Math.random()*5);
+      yStep = (int)(Math.random()*20);
     } else 
     {
-      yStep = (int)(Math.random()*5 - 5);
+      yStep = (int)(Math.random()*20 - 20);
     }
     myX = myX + xStep;
     myY = myY + yStep;
